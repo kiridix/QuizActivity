@@ -1,0 +1,247 @@
+@import url(http://fonts.googleapis.com/css?family=Geo&subset=latin);
+
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+#nettest {
+ background-color: #c0c0c0;
+ text-align: center;
+ margin-top: 10%;
+}
+#game {
+ background-color: rgba(192,192,192, 0);
+ display:none;
+}
+p {
+    font-family: 'Geo', serif;
+    font-size: 40px;
+    -webkit-font-smoothing: none;
+}
+#screenTitle {
+	text-align: center;
+	font-family: 'Geo', serif;
+    font-size: 64px;
+}
+#categoriesboxes{
+	text-align: center;
+
+}
+.categoryBox{
+	text-align: center;
+	width: 21%;
+	margin: 10px;
+	border-radius: 15px;
+	padding-left: 45px;
+	padding-right: 45px;
+	background-color: rgba(192,192,192, 0.8);
+	border-style: solid;
+	border-width: 3px;
+	border-color: black;
+	display: inline-block;
+	padding-top: 8%;
+	padding-bottom: 8%;
+	font-family: 'Geo', serif;
+    font-size: 22px;
+    -webkit-font-smoothing: none;
+}
+.categoryBox:hover{
+	border-color: grey;
+	background-color: #c0c0c0;
+}
+#categories{
+	display: none;
+}
+#title{
+	margin-top: 10%;
+}
+#logo{
+	font-family: 'Geo', serif;
+    font-size: 64px;
+}
+#logoScreen{
+	margin-top: 15%;
+	text-align: center;
+}
+
+#canvas{
+	background-color: white;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.switch {
+	margin-bottom: 0px;
+	padding: 5px;
+	background-color: #808080;
+	text-align: center;
+	width: 49%;
+	display: inline-block;
+} 
+.switch:hover {
+	background-color: #c0c0c0;
+}
+#asd {
+	display: none;
+		border-color: white;
+	border-width: 2px;
+	background: #9df871;
+
+}
+#iniciar {
+	margin-top: 120px;
+	background-color: #c0c0c0;
+	border-radius: 15px;
+	display :  inline-block;
+	border-style: solid;
+	border-color: white;
+	border-width: 2px;
+    border-radius: 50%;
+    padding: 60px;
+    font-size: 30px;
+}
+#iniciar:hover {
+	border-width: 2px;
+	border-color: #9df871;
+}
+#iniciar:focus {
+	border-width: 2px;
+	border-color: #9df871;
+}
+#load {
+	padding: 0px;
+	margin-top: 0px;
+	display: none;
+}
+#ip {
+	font-size: 35px;
+}
+#data {
+	font-size: 35px;
+}
+#question {
+	text-align: center;
+	font-family: 'Geo', serif;
+    font-size: 32px;
+	background-color: rgba(192,192,192, 0.8);
+	margin-top: 10px;
+	text-align: center;
+}
+#answers{
+	text-align: center;
+	font-size: 25px;
+	margin-top: 50px;
+}
+.answer{
+	text-align: center;
+	width: 35%;
+	margin: 5px;
+	border-radius: 15px;
+	padding-left: 45px;
+	padding-right: 45px;
+	background-color: rgba(192,192,192, 0.8);
+	border-style: solid;
+	border-width: 3px;
+	border-color: black;
+	display: inline-block;
+	padding-top: 2.6%;
+	padding-bottom: 2.6%;
+	font-family: 'Geo', serif;
+    font-size: 28px;
+    -webkit-font-smoothing: none;
+}
+.answer:hover{
+	border-color: white;
+	background-color: grey;
+}
+#finishGame{
+	margin-top: 10%;
+	text-align: center;
+	display: none;
+}
+#score{
+	margin-top: 30px;
+	background-color: rgba(192,192,192, 0.8)
+}
+#playAgain{ 
+	padding-bottom: 5px;
+	border-radius: 15px;
+	padding-left: 45px;
+	padding-right: 45px;
+	display: inline-block;
+	text-align: center;
+	font-family: 'Geo', serif;
+    font-size: 28px;
+    color: black;
+    margin-top: 21%;
+    display: inline-block;
+    background-color: rgba(192,192,192, 0.8)
+ }
+ #playAgain:hover {
+ 	border-color: white;
+	background-color: grey;
+ }
+ #restartGame{
+ 	padding-bottom: 5px;
+	border-radius: 15px;
+	padding-left: 45px;
+	padding-right: 45px;
+	display: inline-block;
+	text-align: center;
+	font-family: 'Geo', serif;
+    font-size: 28px;
+    color: black;
+    margin-top: 21%;
+    display: inline-block;
+    background-color: rgba(192,192,192, 0.8)
+ }
+ #restartGame:hover {
+ 	border-color: white;
+	background-color: grey;
+ }
+#finishQuestion{ 
+	display: none;
+	background-color: rgba(192,192,192, 0.8);
+	font-family: 'Geo', serif;
+    font-size: 32px;
+}
+#exit{
+	padding-bottom: 5px;
+	border-radius: 15px;
+	padding-left: 45px;
+	padding-right: 45px;
+	display: inline-block;
+	text-align: center;
+	font-family: 'Geo', serif;
+    font-size: 28px;
+    color: black;
+    display: inline-block;
+    background-color: rgba(192,192,192, 0.8);
+    margin-top: 10px;
+}
+#exit:hover {
+	border-color: black;
+	background-color: red;
+}
+#shareOnFacebook {
+	padding-bottom: 5px;
+	border-radius: 100px;
+	padding: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
+	display: inline-block;
+	text-align: left;
+	font-family: 'Geo', serif;
+    font-size: 28px;
+    color: black;
+    margin-top: 30px;
+    display: inline-block;
+    background-color: #3b5998;
+
+}
+#shareOnFacebook:hover {
+	background-color: #8b9dc3;
+	}
+button:focus {
+	border-color: #9df871;
+}

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<title>Quiz</title>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+  href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+  href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+<link rel="stylesheet" href="css/activity.css">
+<link rel="stylesheet" type="text/css" href="loading-bar.css"/>
+<script type="text/javascript" src="loading-bar.js"></script>
+<script data-main="js/loader" src="lib/require.js"></script>
+<script src="quiz/Questions.txt"></script>
+<script type="text/javascript">
+  var game ={"category":null, "answersOk":0, "answersWrong":0, "currentQuestion": 0, "cantQuestions":0};
+  var questionAnswer;
+  var questions = [];
+  loadQuestions();
+    function loadQuestions(){
+      var questionNum = 10;
+      game.cantQuestions = questionNum;
+      for(var i = 1; i < 11; i++){ 
+        questions.push(i);
+      }
+      questions = shuffle(questions);
+    }
+    function cargarDatos(){
+      var n = questions[game.currentQuestion];
+      document.getElementById("question").innerText = window["Q" + n];
+      document.getElementById("answerA").innerText = window["Q" + n + "a"];
+      document.getElementById("answerB").innerText = window["Q" + n + "b"];
+      document.getElementById("answerC").innerText = window["Q" + n + "c"];
+      document.getElementById("answerD").innerText = window["Q" + n + "d"];
+      document.getElementById("canvas").style.backgroundImage = "url("+ window["Q" + n + "bg"] + ")";
+      questionAnswer = window["QA" + n ];
+}
+function startAgain(){
+  location.reload(); 
+}
+function playAgain(){
+  game.currentQuestion =  game.currentQuestion + 1;
+  play();
+  loadScore();
+}
+function loadScore(){
+  getElementById("score").innerText = game.answersOk;
+}
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  while (0 !== currentIndex) {
+
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+    function play(){
+    document.getElementById("categories").style.display = "none";
+    document.getElementById("game").style.display = "inherit";
+    document.getElementById("answers").style.display = "inherit";
+    document.getElementById("question").style.display = "inherit";
+    document.getElementById("finishQuestion").style.display = "none";
+    document.getElementById("playAgain").style.display = "none";
+    document.getElementById("finishGame").style.display = "none";
+    cargarDatos();
+  }
+  function checkAnswer(answer){
+    if(answer == questionAnswer){
+      document.getElementById("finishQuestion").innerHTML ="Correct!"
+      document.getElementById("finishQuestion").style.color = "green";
+      game.answersOk = game.answersOk + 1;
+      document.getElementById("score").innerText = game.answersOk + " / " + questions.length;
+    }else if(answer != questionAnswer){
+       document.getElementById("finishQuestion").innerHTML ="Incorrect, the answer was : " + document.getElementById("answer" + questionAnswer).innerText ; 
+       document.getElementById("finishQuestion").style.color = "red";
+       game.answersWrong = game.answersWrong + 1;
+    }
+    document.getElementById("answers").style.display = "none";
+    document.getElementById("question").style.display = "none";
+    if(game.currentQuestion == 9){
+      document.getElementById("finishGame").style.display = "inherit";
+      if(game.answersOk > 0){
+      document.getElementById("finalScore").innerText = "Congratulations You got "  + game.answersOk + " answers OK ";
+        }else{
+          document.getElementById("finalScore").innerText = "Sorry, you failed all answers :( ";
+        }
+      document.getElementById("score").style.display = "none";
+    }else{
+    document.getElementById("finishQuestion").style.display = "inherit";
+    document.getElementById("playAgain").style.display = "inherit";
+  }
+    
+  }
+
+
+</script>
+ 
+<script type="text/javascript">
+    window.onload = function(e){
+      var a =  setInterval(function xd(){
+          if(document.getElementById("title").style.display == "none"){
+          document.getElementById("title").style.display = "inherit";
+        }else{
+          document.getElementById("title").style.display = "none";
+        }
+
+        }, 600);
+
+    }
+  document.addEventListener('keydown', (event) => {
+  const keyName = event.key;
+  if(keyName == "Enter"){
+    document.getElementById("logoScreen").style.display = "none";
+    document.getElementById("categories").style.display = "inherit";
+  }
+  
+});
+  function changepage(n){
+    if(n == 2){
+      document.getElementById("info").style.display = "inherit";
+      document.getElementById("nettest").style.display = "none";
+      var x = document.getElementsByClassName("switch");
+      x[1].style.backgroundColor = "#c0c0c0";
+      x[0].style.backgroundColor = "#808080";
+
+    }else if(n == 1){
+      document.getElementById("info").style.display = "none"
+      document.getElementById("nettest").style.display = "inherit";
+      var x = document.getElementsByClassName("switch");
+      document.getElementById("canvas").style.backgroundImage = "url(http://www.colorhexa.com/c0c0c0.png)";
+      x[0].style.backgroundColor = "#c0c0c0";
+      x[1].style.backgroundColor = "#808080";
+    }
+  }
+</script>
+</head>
+
+<body>
+
+<div id="main-toolbar" class="toolbar">
+  <button class="toolbutton" id="activity-button" title="My Activity"></button>
+
+  <!-- Add more buttons here -->
+
+  <!-- Buttons with class="pull-right" will be right aligned -->
+  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+</div>
+
+<!-- The content of your activity goes inside the canvas -->
+<div id="canvas">
+<div id="logoScreen">
+  <h1 id="logo">LOGO <br> ( Imagine that here is a logo )</h1>
+  <p id="title">Press INTRO to start</p>
+</div>
+<div id="categories">
+  <h1 id="screenTitle">Select a category</h1>
+  <div id="categoriesboxes">
+  <div class="categoryBox" onclick="play()">Play a Quiz about technology</div>
+<div class="categoryBox">Create your own quiz (Soon...)</div>
+</div>
+
+</div>
+<div id="game">
+  <div id="exit" onclick="startAgain()">Exit</div>
+  <h1 id="question"></h1>
+  
+
+  <div id="answers">
+    <div class="answer" id="answerA" onclick="checkAnswer('A')">aaa</div><div class="answer" id="answerB" onclick="checkAnswer('B')">bbb</div><div class="answer" id="answerC" onclick="checkAnswer('C')">ccc</div><div class="answer" id="answerD" onclick="checkAnswer('D')">ccc</div>
+  </div>
+  <h1 id="finishQuestion" align="center"></h1>
+  <div id="playAgain" onclick="playAgain()">Other Question !</div>
+  <div id="finishGame">
+    <p id="finalScore"></p>
+    <div id="restartGame" onclick="startAgain()">Restart Game</div><br>
+    <div id="shareOnFacebook">Share your score</div>
+  </div>
+  <div align="center"><p id="score"></p></div>
+  
+</div>
+</div>
+</body>
+
+</html>
