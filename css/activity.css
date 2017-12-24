@@ -3,6 +3,9 @@
 #main-toolbar #activity-button {
   background-image: url(../activity/activity-icon.svg);
 }
+#main-toolbar #exit {
+  background-image: url(../images/exit.svg);
+}
 #nettest {
  background-color: #c0c0c0;
  text-align: center;
@@ -204,24 +207,6 @@ p {
 	background-color: rgba(192,192,192, 0.8);
 	font-family: 'Geo', serif;
     font-size: 32px;
-}
-#exit{
-	padding-bottom: 5px;
-	border-radius: 15px;
-	padding-left: 45px;
-	padding-right: 45px;
-	display: inline-block;
-	text-align: center;
-	font-family: 'Geo', serif;
-    font-size: 28px;
-    color: black;
-    display: inline-block;
-    background-color: rgba(192,192,192, 0.8);
-    margin-top: 10px;
-}
-#exit:hover {
-	border-color: black;
-	background-color: red;
 }
 #shareOnFacebook {
 	padding-bottom: 5px;
