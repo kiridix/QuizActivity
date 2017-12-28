@@ -14,11 +14,12 @@
 <script type="text/javascript" src="loading-bar.js"></script>
 <script data-main="js/loader" src="lib/require.js"></script>
 <script src="quiz/Questions.txt"></script>
+<script src="data.js"></script>
 <script type="text/javascript">
-  var game ={"category":null, "answersOk":0, "answersWrong":0, "currentQuestion": 0, "cantQuestions":0};
   var questionAnswer;
   var questions = [];
   loadQuestions();
+
     function loadQuestions(){
       var questionNum = 10;
       game.cantQuestions = questionNum;
@@ -29,13 +30,13 @@
     }
     function cargarDatos(){
       var n = questions[game.currentQuestion];
-      document.getElementById("question").innerText = window["Q" + n];
-      document.getElementById("answerA").innerText = window["Q" + n + "a"];
-      document.getElementById("answerB").innerText = window["Q" + n + "b"];
-      document.getElementById("answerC").innerText = window["Q" + n + "c"];
-      document.getElementById("answerD").innerText = window["Q" + n + "d"];
-      document.getElementById("canvas").style.backgroundImage = "url("+ window["Q" + n + "bg"] + ")";
-      questionAnswer = window["QA" + n ];
+      document.getElementById("question").innerText = quizQ["Q" + n];
+      document.getElementById("answerA").innerText = quizQ["Q" + n + "a"];
+      document.getElementById("answerB").innerText = quizQ["Q" + n + "b"];
+      document.getElementById("answerC").innerText = quizQ["Q" + n + "c"];
+      document.getElementById("answerD").innerText = quizQ["Q" + n + "d"];
+      document.getElementById("canvas").style.backgroundImage = "url("+ quizQ["Q" + n + "bg"] + ")";
+      questionAnswer = quizQ["QA" + n ];
 }
 function startAgain(){
   location.reload(); 
@@ -106,7 +107,7 @@ function shuffle(array) {
  
 <script type="text/javascript">
     window.onload = function(e){
-      var a =  setInterval(function xd(){
+      var a =  setInterval(function bl(){
           if(document.getElementById("title").style.display == "none"){
           document.getElementById("title").style.display = "inherit";
         }else{
@@ -117,11 +118,13 @@ function shuffle(array) {
 
     }
   document.addEventListener('keydown', (event) => {
-  const keyName = event.key;
-  if(keyName == "Enter"){
-    document.getElementById("logoScreen").style.display = "none";
-    document.getElementById("categories").style.display = "inherit";
+    if(document.getElementById("logoScreen").style.display != "none"){
+      const keyName = event.key;
+      if(keyName == "Enter"){
+        document.getElementById("logoScreen").style.display = "none";
+        document.getElementById("categories").style.display = "inherit";
   }
+}
   
 });
   function changepage(n){
@@ -141,6 +144,38 @@ function shuffle(array) {
       x[1].style.backgroundColor = "#808080";
     }
   }
+  function createQuiz(){
+    document.getElementById("categories").style.display = "none";
+    document.getElementById("createQuiz").style.display = "inherit";
+    document.getElementsByClassName("createAnswers")[0].style.display = "inherit";
+    document.getElementsByClassName("createAnswers")[1].style.display = "inherit";
+    document.getElementsByClassName("inputAnswers")[0].style.display = "inherit";
+    document.getElementsByClassName("inputAnswers")[1].style.display = "inherit";
+    document.getElementById("nextQuestion").style.display = "inherit";
+
+  }
+  function createQuizValidateAnswer(){
+    if(document.getElementById("inputAnswerA").value != "" && document.getElementById("inputAnswerB").value != ""  && document.getElementById("inputAnswerC").value != ""  && document.getElementById("inputAnswerD").value != "" && document.getElementById("createQuestion").value != ""){
+      document.getElementById("inputAnswerA").value = "";
+      document.getElementById("inputAnswerB").value = "";
+      document.getElementById("inputAnswerC").value = "";
+      document.getElementById("inputAnswerD").value = "";
+      document.getElementById("createQuestion").value = "";
+    }else{
+      QuizCreateError();
+    }
+  }
+  function QuizCreateError(){
+    var error = setInterval(function bl(){
+          if(document.getElementById("error").style.display == "none"){
+          document.getElementById("error").style.display = "inherit";
+        }else{
+          document.getElementById("error").style.display = "none";
+        }
+
+        }, 300);
+    setTimeout(function(){ clearInterval(error); document.getElementById("error").style.display = "inherit"; setTimeout(function(){ clearInterval(error); document.getElementById("error").style.display = "none"; }, 2000); }, 2000);
+    }
 </script>
 </head>
 
@@ -165,7 +200,7 @@ function shuffle(array) {
   <h1 id="screenTitle">Select a category</h1>
   <div id="categoriesboxes">
   <div class="categoryBox" onclick="play()">Play a Quiz about technology</div>
-<div class="categoryBox">Create your own quiz (Soon...)</div>
+<div class="categoryBox" onclick="createQuiz()">Create your own quiz</div>
 </div>
 
 </div>
@@ -185,6 +220,36 @@ function shuffle(array) {
   </div>
   <div align="center"><p id="score"></p></div>
   
+</div>
+<div id="createQuiz">
+  <div id="inputQuestion">
+    <h1 id="question">Insert the question</h1>
+    <input id="createQuestion" type="text"></div>
+  </div>
+  <div class="createAnswers">
+    <h1 class="createAnswer">Answer A</h1><h1 class="createAnswer">Answer B</h1>
+  </div>
+    <div class="inputAnswers">
+    <input class="inputAnswer" id="inputAnswerA" type="text"><input class="inputAnswer" id="inputAnswerB" type="text">
+  </div>
+  <div class="createAnswers">
+    <h1 class="createAnswer">Answer C</h1><h1 class="createAnswer">Answer D</h1>
+  </div>
+    <div class="inputAnswers">
+    <input class="inputAnswer" id="inputAnswerC" type="text"><input class="inputAnswer" id="inputAnswerD" type="text">
+  </div>
+  <div id="error">
+     <p>Please complete all spaces</p> 
+  </div>
+  <div id="nextQuestion">
+  <p>Select the correct answer</p><select id="mainselection">
+      <option value="A">A</option>
+      <option value="B">B</option>
+      <option value="C">C</option>
+      <option value="D">D</option>
+    </select> 
+    <div id="NextQuestionButton" onclick="createQuizValidateAnswer()">Next Question</div>
+  </div>
 </div>
 </div>
 </body>
