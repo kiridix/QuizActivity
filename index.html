@@ -13,12 +13,14 @@
 <link rel="stylesheet" type="text/css" href="loading-bar.css"/>
 <script type="text/javascript" src="loading-bar.js"></script>
 <script data-main="js/loader" src="lib/require.js"></script>
-<script src="quiz/Questions.txt"></script>
+<script src="customQuiz.qz"></script>
 <script src="data.js"></script>
-<script type="text/javascript">
+<script type="text/javascript"> 
+  var isCustom = false;
   var questionAnswer;
-  var questions = [];
-  loadQuestions();
+  var questions = [1,2,3,4,5,6,7,8,9,10];
+  var customQ;
+  //loadQuestions();
 
     function loadQuestions(){
       var questionNum = 10;
@@ -35,7 +37,6 @@
       document.getElementById("answerB").innerText = quizQ["Q" + n + "b"];
       document.getElementById("answerC").innerText = quizQ["Q" + n + "c"];
       document.getElementById("answerD").innerText = quizQ["Q" + n + "d"];
-      document.getElementById("canvas").style.backgroundImage = "url("+ quizQ["Q" + n + "bg"] + ")";
       questionAnswer = quizQ["QA" + n ];
 }
 function startAgain(){
@@ -43,7 +44,11 @@ function startAgain(){
 }
 function playAgain(){
   game.currentQuestion =  game.currentQuestion + 1;
+  if(isCustom){
+    playCustom();
+  }else{
   play();
+}
   loadScore();
 }
 function loadScore(){
@@ -106,6 +111,7 @@ function shuffle(array) {
 </script>
  
 <script type="text/javascript">
+
     window.onload = function(e){
       var a =  setInterval(function bl(){
           if(document.getElementById("title").style.display == "none"){
@@ -152,18 +158,41 @@ function shuffle(array) {
     document.getElementsByClassName("inputAnswers")[0].style.display = "inherit";
     document.getElementsByClassName("inputAnswers")[1].style.display = "inherit";
     document.getElementById("nextQuestion").style.display = "inherit";
+    createQuiz.questionNum = 1;
 
   }
   function createQuizValidateAnswer(){
     if(document.getElementById("inputAnswerA").value != "" && document.getElementById("inputAnswerB").value != ""  && document.getElementById("inputAnswerC").value != ""  && document.getElementById("inputAnswerD").value != "" && document.getElementById("createQuestion").value != ""){
+      loadCustomQuiz();
       document.getElementById("inputAnswerA").value = "";
       document.getElementById("inputAnswerB").value = "";
       document.getElementById("inputAnswerC").value = "";
       document.getElementById("inputAnswerD").value = "";
       document.getElementById("createQuestion").value = "";
-    }else{
+      if(createQuiz.questionNum == 10){
+        document.getElementById("createQuiz").style.display = "none";
+        document.getElementsByClassName("createAnswers")[0].style.display = "none";
+        document.getElementsByClassName("createAnswers")[1].style.display = "none";
+        document.getElementsByClassName("inputAnswers")[0].style.display = "none";
+        document.getElementsByClassName("inputAnswers")[1].style.display = "none";
+        document.getElementById("nextQuestion").style.display = "none";
+        document.getElementById("customQuizDownload").style.display = "inherit";
+        loadCustomFile();
+      }
+      createQuiz.questionNum = createQuiz.questionNum + 1;
+      document.getElementById("questionCus").innerHTML = "Question " + createQuiz.questionNum + "/10";
+      }else{
       QuizCreateError();
     }
+  }
+  function loadCustomQuiz(){
+    customQuiz["Q" + createQuiz.questionNum + "a"] = document.getElementById("inputAnswerA").value;
+    customQuiz["Q" + createQuiz.questionNum + "b"] = document.getElementById("inputAnswerB").value;
+    customQuiz["Q" + createQuiz.questionNum + "c"] = document.getElementById("inputAnswerC").value;
+    customQuiz["Q" + createQuiz.questionNum + "d"] = document.getElementById("inputAnswerD").value;
+    customQuiz["Q" + createQuiz.questionNum] = document.getElementById("createQuestion").value;
+    customQuiz["QA" + createQuiz.questionNum] = document.getElementById("mainselection").value;
+
   }
   function QuizCreateError(){
     var error = setInterval(function bl(){
@@ -175,7 +204,9 @@ function shuffle(array) {
 
         }, 300);
     setTimeout(function(){ clearInterval(error); document.getElementById("error").style.display = "inherit"; setTimeout(function(){ clearInterval(error); document.getElementById("error").style.display = "none"; }, 2000); }, 2000);
+    
     }
+
 </script>
 </head>
 
@@ -201,6 +232,7 @@ function shuffle(array) {
   <div id="categoriesboxes">
   <div class="categoryBox" onclick="play()">Play a Quiz about technology</div>
 <div class="categoryBox" onclick="createQuiz()">Create your own quiz</div>
+<div class="categoryBox" onclick=""><input type="file" id="file-input" />Upload a custom quiz</div>
 </div>
 
 </div>
@@ -223,7 +255,7 @@ function shuffle(array) {
 </div>
 <div id="createQuiz">
   <div id="inputQuestion">
-    <h1 id="question">Insert the question</h1>
+    <h1 id="questionCus">Question 1/10</h1>
     <input id="createQuestion" type="text"></div>
   </div>
   <div class="createAnswers">
@@ -250,8 +282,63 @@ function shuffle(array) {
     </select> 
     <div id="NextQuestionButton" onclick="createQuizValidateAnswer()">Next Question</div>
   </div>
+  <div id="customQuizDownload">
+      <h1 id="question">Download your custom Quiz Here and share it with your friends :D</h1>
+          <a id="download" download="customQuiz.qz">Download!</a>
+  </div>
 </div>
 </div>
+<script type="text/javascript">
+  function loadCustomFile(){
+  document.getElementById("download").href = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(customQuiz));
+}
+
+
+
+function leerArchivo(e) {
+  var archivo = e.target.files[0];
+  if (!archivo) {
+    return;
+  }
+  var lector = new FileReader();
+  lector.onload = function(e) {
+    var contenido = e.target.result;
+    mostrarContenido(contenido);
+  };
+  lector.readAsText(archivo);
+}
+
+function mostrarContenido(contenido) {
+  var elemento = document.getElementById('contenido-archivo');
+  customQ = JSON.parse(contenido);
+  playCustom();
+  isCustom = true;
+}
+
+document.getElementById('file-input')
+  .addEventListener('change', leerArchivo, false);
+
+
+    function playCustom(){
+    document.getElementById("categories").style.display = "none";
+    document.getElementById("game").style.display = "inherit";
+    document.getElementById("answers").style.display = "inherit";
+    document.getElementById("question").style.display = "inherit";
+    document.getElementById("finishQuestion").style.display = "none";
+    document.getElementById("playAgain").style.display = "none";
+    document.getElementById("finishGame").style.display = "none";
+    cargarDatosCustom();
+  }
+      function cargarDatosCustom(){
+      var n = questions[game.currentQuestion];
+      document.getElementById("question").innerText = customQ["Q" + n];
+      document.getElementById("answerA").innerText = customQ["Q" + n + "a"];
+      document.getElementById("answerB").innerText = customQ["Q" + n + "b"];
+      document.getElementById("answerC").innerText = customQ["Q" + n + "c"];
+      document.getElementById("answerD").innerText = customQ["Q" + n + "d"];
+      questionAnswer = customQ["QA" + n ];
+}
+</script>
 </body>
 
 </html>

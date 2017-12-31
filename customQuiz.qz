@@ -1,20 +1,18 @@
-
-var createQuiz={"questionNum":1}
-var game ={"category":null, "answersOk":0, "answersWrong":0, "currentQuestion": 0, "cantQuestions":0};
-var quizQ={"Q1":"What does the Internet prefix WWW stand for?",
+var customQuiz = {"customLoaded":false, "Qnum":0,
+"Q1":"What does the Internet prefix WWW stand for?",
 "Q1a":"Worldwide Weather",
 "Q1b":"World Wide Web",
 "Q1c":"Wide Width Wickets",
 "Q1d":"Western Washington World",
 "QA1":"B",
-"Q1bg":"https://computerhindinotes.com/wp-content/uploads/2016/12/BTgrodpyc.jpg",
+"Q1bg":"",
 "Q2":"How many bytes are 1GB",
 "Q2a":"1.024 bytes",
 "Q2b":"8.765 bytes",
 "Q2c":"1.073.741.824 bytes",
 "Q2d":"2048",
 "QA2":"C",
-"Q2bg":"https://i.ytimg.com/vi/AuQkN2R0gi0/maxresdefault.jpg",
+"Q2bg":"",
 "Q3":"First computer virus is known as",
 "Q3a":"Rabbit",
 "Q3b":"Creeper Virus",
@@ -71,4 +69,4 @@ var quizQ={"Q1":"What does the Internet prefix WWW stand for?",
 "Q10d":"Driver Boot",
 "QA10":"A",
 "Q10bg":"",
-}
+};
